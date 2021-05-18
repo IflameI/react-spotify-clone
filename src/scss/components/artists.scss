@@ -1,0 +1,33 @@
+//<МИКСИНЫ>===============================================================================================
+@import '../helpers/mixins';
+
+//</МИКСИНЫ>===============================================================================================
+
+.artists {
+  &__content {
+    padding-top: 20px;
+    margin-bottom: 40px;
+  }
+  &__row {
+    @include flexbox();
+    margin: 0 -10px;
+    flex-wrap: wrap;
+  }
+  &__column {
+    padding: 0 10px;
+    flex: 0 1 25%;
+    margin-bottom: 20px;
+  }
+  &__img {
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  &__name {
+    text-align: center;
+    font-weight: 700;
+    padding-top: 10px;
+  }
+}

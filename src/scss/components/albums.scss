@@ -1,0 +1,40 @@
+//<МИКСИНЫ>===============================================================================================
+@import '../helpers/mixins';
+
+//</МИКСИНЫ>===============================================================================================
+.albums {
+  &__content {
+    margin-bottom: 40px;
+  }
+  &__row {
+    @include flexbox();
+    margin: 0 -10px;
+    flex-wrap: wrap;
+  }
+  &__column {
+    flex: 0 1 25%;
+    padding: 0 10px;
+    margin-bottom: 15px;
+  }
+  &__item {
+    @media (min-width: $md1+px) {
+      &:hover {
+        @include anim(0.3s, 0s);
+        @include scale(1.1);
+      }
+    }
+  }
+  &__img {
+    img {
+      max-width: 100%;
+      object-fit: cover;
+    }
+  }
+  &__title {
+    padding: 10px 0;
+    font-weight: 700;
+  }
+  &__artist {
+    color: #ccc;
+  }
+}

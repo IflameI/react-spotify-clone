@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from 'react-router';
 
-function App() {
+import {
+  Albums,
+  Artists,
+  Footer,
+  Header,
+  MainContent,
+  PlaylistItem,
+  Sidebar,
+  SongsList,
+} from './components';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='wrapper'>
+        <main className='main'>
+          <Header />
+          <Sidebar />
+          <div className='main__content content-main'>
+            <div className='container'>
+              <Switch>
+                <Route exact path='/' component={MainContent} />
+                <Route exact path='/artists' component={Artists} />
+                <Route exact path='/albums' component={Albums} />
+                <Route exact path='/playlistItem' component={PlaylistItem} />
+                <Route exact path='/songsList' component={SongsList} />
+                <Route exact path='/recently' component={SongsList} />
+              </Switch>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
