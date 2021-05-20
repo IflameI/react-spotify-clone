@@ -3,7 +3,10 @@ import { actionsType } from '../actions/profile';
 const initialState = {
   isLoaded: false,
   fetchUserError: false,
-  user: {},
+  user: {
+    id: '',
+    display_name: '',
+  },
 };
 type initialStateType = typeof initialState;
 

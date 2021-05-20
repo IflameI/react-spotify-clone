@@ -12,6 +12,7 @@ import {
   SongsList,
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
+import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
 import { setToken } from './redux/actions/token';
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
@@ -25,7 +26,6 @@ const App: React.FC = () => {
       user: profile.user,
     };
   });
-  console.log(user);
   useEffect(() => {
     const hashParams: any = {};
     let e,
@@ -45,8 +45,8 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProfile(token));
     dispatch(fetchAlbums(token));
+    dispatch(fetchPlaylistsMenu('51ti3ndaxx0s5cgp56a09n1as', token));
   }, [token]);
-
   return (
     <>
       <div className='wrapper'>
