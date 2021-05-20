@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   return (
     <aside className='sidebar'>
       <ul className='sidebar__list'>

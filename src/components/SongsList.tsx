@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SongsList = () => {
+const SongsList: React.FC = () => {
   return (
     <section className='recently'>
       <h1 className='recently__title content-main__title'>Recently Played</h1>

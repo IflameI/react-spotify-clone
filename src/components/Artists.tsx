@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Artists = () => {
+const Artists: React.FC = () => {
   return (
     <section className='artists recently'>
       <h1 className='recently__title content-main__title'>Artists</h1>

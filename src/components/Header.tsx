@@ -1,6 +1,14 @@
 import React from 'react';
 
-const Header = () => {
+type HeaderType = {
+  display_name?: string;
+};
+
+interface headerInfo {
+  user: HeaderType;
+}
+
+const Header: React.FC<headerInfo> = ({ user }) => {
   return (
     <header className='header'>
       <div className='container'>
@@ -11,7 +19,7 @@ const Header = () => {
             </div>
           </div>
           <div className='header__right'>
-            <div className='header__info'>Iflamei</div>
+            <div className='header__info'>{user.display_name}</div>
           </div>
         </div>
       </div>

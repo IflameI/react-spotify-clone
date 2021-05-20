@@ -1,7 +1,7 @@
 import React from 'react';
 import { MainContentColumn } from '..';
 
-const MainContent = () => {
+const MainContent: React.FC = () => {
   return (
     <>
       <h1 className='content-main__title'>Browse</h1>

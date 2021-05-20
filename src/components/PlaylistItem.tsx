@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlaylistItem = () => {
+const PlaylistItem: React.FC = () => {
   return (
     <section className='playlist-item'>
       <div className='playlist-item__header'>

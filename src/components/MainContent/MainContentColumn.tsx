@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const MainContentColumn = () => {
+const MainContentColumn: React.FC = () => {
   return (
     <div className='content-main__column'>
       <NavLink exact to='/playlistItem'>

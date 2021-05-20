@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlbumsColumn } from '../../components';
 
-const Albums = () => {
+const Albums: React.FC = () => {
   return (
     <section className='albums recently'>
       <h1 className='recently__title content-main__title'>Albums</h1>

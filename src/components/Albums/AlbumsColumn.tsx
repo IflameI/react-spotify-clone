@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const AlbumsColumn = () => {
+const AlbumsColumn: React.FC = () => {
   return (
     <div className='albums__column'>
       <NavLink exact to='/playlistItem' activeClassName='sidebar__active'>
