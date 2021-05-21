@@ -1,44 +1,29 @@
 import { Dispatch } from 'redux';
+import { SongActions, songsActionType } from '../../types/songs';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-const FETCH_SONGS_PENDING = 'FETCH_SONGS_PENDING';
-const FETCH_SONGS_SUCCESS = 'FETCH_SONGS_SUCCESS';
-const FETCH_SONGS_ERROR = 'FETCH_SONGS_ERROR';
 
-export type actionsType = fetchSongsPendingType | fetchSongsSuccessType | fetchSongsErrorType;
-
-type fetchSongsPendingType = {
-  type: typeof FETCH_SONGS_PENDING,
-};
-type fetchSongsSuccessType = {
-  type: typeof FETCH_SONGS_SUCCESS,
-  payload:any
-};
-type fetchSongsErrorType = {
-  type: typeof FETCH_SONGS_ERROR,
-};
-
-export const fetchSongsPending = (): fetchSongsPendingType => {
+export const fetchSongsPending = (): SongActions => {
   return {
-    type: FETCH_SONGS_PENDING,
+    type: songsActionType.FETCH_SONGS_PENDING,
   };
 };
 
-export const fetchSongsSuccess = (payload:any): fetchSongsSuccessType => {
+export const fetchSongsSuccess = (payload:any): SongActions => {
   return {
-    type: FETCH_SONGS_SUCCESS,
+    type: songsActionType.FETCH_SONGS_SUCCESS,
     payload
   };
 };
 
-export const fetchSongsError = (): fetchSongsErrorType => {
+export const fetchSongsError = (): SongActions => {
   return {
-    type: FETCH_SONGS_ERROR,
+    type: songsActionType.FETCH_SONGS_ERROR,
 
   };
 };
 
-export const fetchSongs  = (accessToken: string) => (dispatch: Dispatch<actionsType>) => {
+export const fetchSongs  = (accessToken: string) => (dispatch: Dispatch<SongActions>) => {
   const request = new Request('https://api.spotify.com/v1/me/tracks?limit=50', {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,

@@ -1,45 +1,29 @@
 import { Dispatch } from 'redux';
+import { profileActions,profileActionType } from '../../types/profile';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-const SET_LOADED = 'SET_LOADED';
-const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-const FETCH_USER_ERROR = 'FETCH_USER_ERROR';
 
-export type actionsType = setLoadedActionType | fetchUserSuccessType | fetchUserErrorType;
-
-type setLoadedActionType = {
-  type: typeof SET_LOADED,
-  payload: boolean,
-};
-type fetchUserSuccessType = {
-  type: typeof FETCH_USER_SUCCESS,
-  payload: any,
-};
-type fetchUserErrorType = {
-  type: typeof FETCH_USER_ERROR,
-};
-
-export const fetchUserSuccess = (user: any): fetchUserSuccessType => {
+export const fetchUserSuccess = (user: any):profileActions => {
   return {
-    type: FETCH_USER_SUCCESS,
+    type: profileActionType.FETCH_USER_SUCCESS,
     payload: user,
   };
 };
 
-export const fetchUserError = (): fetchUserErrorType => {
+export const fetchUserError = ():profileActions => {
   return {
-    type: FETCH_USER_ERROR,
+    type: profileActionType.FETCH_USER_ERROR,
   };
 };
 
-export const setLoaded = (payload: boolean): setLoadedActionType => {
+export const setLoaded = (payload: boolean):profileActions => {
   return {
-    type: SET_LOADED,
+    type: profileActionType.SET_LOADED,
     payload,
   };
 };
 
-export const fetchProfile = (accessToken: string) => (dispatch: Dispatch<actionsType>) => {
+export const fetchProfile = (accessToken: string) => (dispatch: Dispatch<profileActions>) => {
   const request = new Request('https://api.spotify.com/v1/me', {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,

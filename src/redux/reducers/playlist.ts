@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { actionsType } from "../actions/playlist";
+
 const initialState = {
   fetchPlaylistPending: false,
   fetchPlaylistError: false,
@@ -8,14 +10,14 @@ const initialState = {
 };
 type initialStateType = typeof initialState;
 
-const playlist = (state = initialState, action: any): initialStateType => {
+const playlist = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
     case 'FETCH_PLAYLIST_MENU_PENDING':
       return {
         ...state,
         fetchPlaylistPending: true,
       };
-    case 'FETCH_PLAYLIST_MENU_SUCCESS"':
+    case 'FETCH_PLAYLIST_MENU_SUCCESS':
       return {
         ...state,
         playlistMenu: action.payload,
@@ -25,9 +27,9 @@ const playlist = (state = initialState, action: any): initialStateType => {
     case 'ADD_PLAYLIST_ITEM':
       return {
         ...state,
-        playlists: [...state.playlists, action.playlist],
+        playlists: [...state.playlists, action.payload],
       };
-    case 'FETCH_PLAYLIST_MENU_ERROR""':
+    case 'FETCH_PLAYLIST_MENU_ERROR':
       return {
         ...state,
         fetchPlaylistError: true,
