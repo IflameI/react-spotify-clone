@@ -4,11 +4,11 @@ type HeaderType = {
   display_name?: string;
 };
 
-interface headerInfo {
+interface IHeaderInfo {
   user: HeaderType;
 }
 
-const Header: React.FC<headerInfo> = ({ user }) => {
+const Header: React.FC<IHeaderInfo> = ({ user }) => {
   return (
     <header className='header'>
       <div className='container'>

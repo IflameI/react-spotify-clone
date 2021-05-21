@@ -15,11 +15,6 @@ const Sidebar: React.FC = () => {
         <div className='sidebar__block'>
           <h3 className='sidebar__title'>YOUR LIBRARY</h3>
           <li>
-            <NavLink exact to='/recently' activeClassName='sidebar__active'>
-              Recently Played
-            </NavLink>
-          </li>
-          <li>
             <NavLink exact to='/songsList' activeClassName='sidebar__active'>
               Songs
             </NavLink>

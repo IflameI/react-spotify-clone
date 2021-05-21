@@ -60,8 +60,9 @@ const App: React.FC = () => {
                 <Route exact path='/artists' component={Artists} />
                 <Route exact path='/albums' component={Albums} />
                 <Route exact path='/playlistItem' component={PlaylistItem} />
-                <Route exact path='/songsList' component={SongsList} />
-                <Route exact path='/recently' component={SongsList} />
+                <Route path='/songsList'>
+                  <SongsList token={token} />
+                </Route>
               </Switch>
             </div>
           </div>
