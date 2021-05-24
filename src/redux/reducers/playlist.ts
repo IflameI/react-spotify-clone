@@ -1,39 +1,59 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
-import { actionsType } from "../actions/playlist";
+import { playlistActionType, playlistActions } from '../../types/playlist';
 
 const initialState = {
   fetchPlaylistPending: false,
   fetchPlaylistError: false,
   playlistMenu: [],
   playlists: [[]],
+  fetchPlaylistSongsPending: false,
+  songs: [],
+  fetchPlaylistSongsError: false,
 };
 type initialStateType = typeof initialState;
 
-const playlist = (state = initialState, action: actionsType): initialStateType => {
+const playlist = (state = initialState, action: playlistActions): initialStateType => {
   switch (action.type) {
-    case 'FETCH_PLAYLIST_MENU_PENDING':
+    case playlistActionType.FETCH_PLAYLIST_MENU_PENDING:
       return {
         ...state,
         fetchPlaylistPending: true,
       };
-    case 'FETCH_PLAYLIST_MENU_SUCCESS':
+    case playlistActionType.FETCH_PLAYLIST_MENU_SUCCESS:
       return {
         ...state,
         playlistMenu: action.payload,
         fetchPlaylistError: false,
         fetchPlaylistPending: false,
       };
-    case 'ADD_PLAYLIST_ITEM':
+    case playlistActionType.ADD_PLAYLIST_ITEM:
       return {
         ...state,
         playlists: [...state.playlists, action.payload],
       };
-    case 'FETCH_PLAYLIST_MENU_ERROR':
+    case playlistActionType.FETCH_PLAYLIST_MENU_ERROR:
       return {
         ...state,
         fetchPlaylistError: true,
         fetchPlaylistPending: false,
+      };
+    case playlistActionType.FETCH_PLAYLIST_SONGS_PENDING:
+      return {
+        ...state,
+        fetchPlaylistSongsPending: true,
+      };
+    case playlistActionType.FETCH_PLAYLIST_SONGS_SUCCESS:
+      return {
+        ...state,
+        songs: action.songs,
+        fetchPlaylistSongsError: false,
+        fetchPlaylistSongsPending: false,
+      };
+    case playlistActionType.FETCH_PLAYLIST_SONGS_ERROR:
+      return {
+        ...state,
+        fetchPlaylistSongsError: true,
+        fetchPlaylistSongsPending: false,
       };
     default:
       return state;

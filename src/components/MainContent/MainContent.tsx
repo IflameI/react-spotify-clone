@@ -1,7 +1,12 @@
 import React from 'react';
 import { MainContentColumn } from '..';
 
-const MainContent: React.FC = () => {
+interface IContent {
+  view: any;
+  isLoaded: boolean;
+}
+
+const MainContent: React.FC<IContent> = ({ view, isLoaded }) => {
   return (
     <>
       <h1 className='content-main__title'>Browse</h1>
@@ -13,11 +18,11 @@ const MainContent: React.FC = () => {
         </ul>
       </div>
       <div className='content-main__row'>
-        <MainContentColumn />
-        <MainContentColumn />
-        <MainContentColumn />
-        <MainContentColumn />
-        <MainContentColumn />
+        {isLoaded ? (
+          view.map((obj: any) => <MainContentColumn key={obj.id} {...obj} />)
+        ) : (
+          <div>Loader</div>
+        )}
       </div>
     </>
   );

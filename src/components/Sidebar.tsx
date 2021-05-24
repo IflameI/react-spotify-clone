@@ -32,7 +32,11 @@ const Sidebar: React.FC = () => {
         </div>
         <div className='sidebar__block'>
           <h4 className='sidebar__title'>PLAYLISTS</h4>
-          <li>Playlist</li>
+          <li>
+            <NavLink exact to='/playlistProfileItem' activeClassName='sidebar__active'>
+              Playlist
+            </NavLink>
+          </li>
         </div>
       </ul>
       <div className='sidebar__img'>

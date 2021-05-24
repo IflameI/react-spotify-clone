@@ -12,6 +12,7 @@ import {
   SongsList,
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
+import { fetchFeatured } from './redux/actions/browse';
 import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
 import { setToken } from './redux/actions/token';
@@ -20,10 +21,12 @@ import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { token, user } = useAppSelector(({ token, profile }) => {
+  const { token, user, view, isLoaded } = useAppSelector(({ token, profile, browse }) => {
     return {
       token: token.token,
       user: profile.user,
+      view: browse.view,
+      isLoaded: browse.isLoaded,
     };
   });
   useEffect(() => {
@@ -45,7 +48,8 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProfile(token));
     dispatch(fetchAlbums(token));
-    dispatch(fetchPlaylistsMenu('51ti3ndaxx0s5cgp56a09n1as', token));
+    dispatch(fetchPlaylistsMenu(user.id, token));
+    dispatch(fetchFeatured(token));
   }, [token]);
   return (
     <>
@@ -56,13 +60,15 @@ const App: React.FC = () => {
           <div className='main__content content-main'>
             <div className='container'>
               <Switch>
-                <Route exact path='/' component={MainContent} />
-                <Route exact path='/artists' component={Artists} />
-                <Route exact path='/albums' component={Albums} />
-                <Route exact path='/playlistItem' component={PlaylistItem} />
-                <Route path='/songsList'>
+                <Route exact path='/'>
+                  <MainContent view={view} isLoaded={isLoaded} />
+                </Route>
+                <Route exact path='/songsList'>
                   <SongsList token={token} />
                 </Route>
+                <Route exact path='/albums' component={Albums} />
+                <Route exact path='/artists' component={Artists} />
+                <Route exact path='/playlistProfileItem' component={PlaylistItem} />
               </Switch>
             </div>
           </div>
