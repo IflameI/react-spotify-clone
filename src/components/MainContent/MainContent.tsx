@@ -2,7 +2,7 @@ import React from 'react';
 import { MainContentColumn } from '..';
 
 interface IContent {
-  view: any;
+  view: any[];
   isLoaded: boolean;
   onClickAlbum: (albumId: string) => any;
 }

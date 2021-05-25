@@ -13,7 +13,7 @@ import {
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
 import { fetchFeatured } from './redux/actions/browse';
-import { fetchPlaylistsMenu, fetchPlaylistSongs } from './redux/actions/playlist';
+import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
 import { setToken } from './redux/actions/token';
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
@@ -48,17 +48,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchProfile(token));
-    dispatch(fetchAlbums(token));
+    // dispatch(fetchAlbums(token));
     dispatch(fetchFeatured(token));
   }, [token]);
 
-  useEffect(() => {
-    dispatch(fetchPlaylistsMenu(user.id, token));
-  }, [user.id]);
-
   const onClickAlbum = React.useCallback(
     (albumId: string) => {
-      dispatch(fetchPlaylistSongs(user.id, token, albumId));
+      dispatch(fetchPlaylistsMenu(albumId, token));
     },
     [user.id],
   );

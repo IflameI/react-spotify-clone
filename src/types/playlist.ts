@@ -4,8 +4,7 @@ export enum playlistActionType {
      ADD_PLAYLIST_ITEM = 'ADD_PLAYLIST_ITEM',
      FETCH_PLAYLIST_SONGS_SUCCESS = 'FETCH_PLAYLIST_SONGS_SUCCESS',
      SET_LOADED = 'SET_LOADED',
-     FETCH_PLAYLIST_SONGS_PENDING = 'FETCH_PLAYLIST_SONGS_PENDING',
-
+     FETCH_PLAYLIST_MENU_PENDING = 'FETCH_PLAYLIST_MENU_PENDING',
 }
 export interface fetchPlaylistMenuSuccessType  {
    type: playlistActionType.FETCH_PLAYLIST_MENU_SUCCESS,
@@ -28,11 +27,10 @@ export interface fetchPlaylistMenuSuccessType  {
    payload: boolean,
 }
 
-export interface fetchPlaylistSongsPendingType  {
-   type: playlistActionType.FETCH_PLAYLIST_SONGS_PENDING,
+export interface fetchPlaylistMenuPendingType  {
+   type: playlistActionType.FETCH_PLAYLIST_MENU_PENDING,
 }
 
 
-export type playlistActions = fetchPlaylistSongsPendingType | 
-fetchPlaylistSongsPendingType | setLoadedType | fetchPlaylistMenuSuccessType | 
-addPlaylistItemType  | fetchPlaylistSongsSuccessType  ;
+export type playlistActions = fetchPlaylistMenuPendingType | setLoadedType | fetchPlaylistMenuSuccessType | 
+addPlaylistItemType  | fetchPlaylistSongsSuccessType;
