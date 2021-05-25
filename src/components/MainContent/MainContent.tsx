@@ -4,9 +4,10 @@ import { MainContentColumn } from '..';
 interface IContent {
   view: any;
   isLoaded: boolean;
+  onClickAlbum: (albumId: string) => any;
 }
 
-const MainContent: React.FC<IContent> = ({ view, isLoaded }) => {
+const MainContent: React.FC<IContent> = ({ view, isLoaded, onClickAlbum }) => {
   return (
     <>
       <h1 className='content-main__title'>Browse</h1>
@@ -19,7 +20,9 @@ const MainContent: React.FC<IContent> = ({ view, isLoaded }) => {
       </div>
       <div className='content-main__row'>
         {isLoaded ? (
-          view.map((obj: any) => <MainContentColumn key={obj.id} {...obj} />)
+          view.map((obj: any) => (
+            <MainContentColumn onClickAlbum={onClickAlbum} key={obj.id} {...obj} />
+          ))
         ) : (
           <div>Loader</div>
         )}

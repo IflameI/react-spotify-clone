@@ -1,6 +1,16 @@
 import React from 'react';
+import { TableSongs } from '.';
+import { useAppDispatch, useAppSelector } from '../redux/typeHooks/hooks';
 
 const PlaylistItem: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const { songs, fetchPlaylistSongsPending } = useAppSelector(({ playlist }) => {
+    return {
+      songs: playlist.songs.items,
+      fetchPlaylistSongsPending: playlist.fetchPlaylistSongsPending,
+    };
+  });
   return (
     <section className='playlist-item'>
       <div className='playlist-item__header'>
@@ -49,29 +59,11 @@ const PlaylistItem: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <tbody className='table-main__body'>
-            <tr>
-              <td>They Want What We Want And They Care</td>
-              <td>Asking Alexandria</td>
-              <td>They Want What We Want And They Care</td>
-              <td>2021-05-17</td>
-              <td>3:15</td>
-            </tr>
-            <tr>
-              <td>They Want What We Want And They Care</td>
-              <td>Asking Alexandria</td>
-              <td>They Want What We Want And They Care</td>
-              <td>2021-05-17</td>
-              <td>3:15</td>
-            </tr>
-            <tr>
-              <td>They Want What We Want And They Care</td>
-              <td>Asking Alexandria</td>
-              <td>They Want What We Want And They Care</td>
-              <td>2021-05-17</td>
-              <td>3:15</td>
-            </tr>
-          </tbody>
+          {fetchPlaylistSongsPending ? (
+            <div>Loader</div>
+          ) : (
+            songs.map((obj: any) => <TableSongs key={obj.id} {...obj} />)
+          )}
         </table>
       </div>
     </section>

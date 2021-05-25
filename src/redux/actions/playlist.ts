@@ -2,26 +2,12 @@ import { Dispatch } from 'redux';
 import { playlistActions,playlistActionType } from '../../types/playlist';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-
-export const fetchPlaylistMenuPending = (): playlistActions => {
-  return {
-    type: playlistActionType.FETCH_PLAYLIST_MENU_PENDING,
-  };
-};
-
 export const fetchPlaylistMenuSuccess = (payload:any): playlistActions => {
   return {
     type: playlistActionType.FETCH_PLAYLIST_MENU_SUCCESS,
     payload
   };
 };
-
-export const fetchPlaylistMenuError = (): playlistActions => {
-  return {
-    type: playlistActionType.FETCH_PLAYLIST_MENU_ERROR,
-  };
-};
-
 
 export const addPlaylistItem  = (payload:any): playlistActions => {
     return {
@@ -31,14 +17,16 @@ export const addPlaylistItem  = (payload:any): playlistActions => {
   };
 
 
-export const fetchPlaylistsMenu  = (userId:string,accessToken: string) => (dispatch: Dispatch<playlistActions>) => {
-  const request = new Request(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+export const fetchPlaylistsMenu  = (playlistId:string,accessToken: string) => (dispatch: Dispatch<playlistActions>) => {
+  const request = new Request(`	https://api.spotify.com/v1/playlists/${playlistId}`, {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,
     }),
   });
-
-  dispatch(fetchPlaylistMenuPending());
+  dispatch({
+    type: playlistActionType.SET_LOADED,
+    payload: false,
+  });
 
   fetch(request)
     .then((res) => {
@@ -47,15 +35,6 @@ export const fetchPlaylistsMenu  = (userId:string,accessToken: string) => (dispa
     .then((res) => {
       dispatch(fetchPlaylistMenuSuccess(res));
     })
-    .catch((err) => {
-      dispatch(fetchPlaylistMenuError());
-    });
-};
-
-export const fetchPlaylistSongsPending = (): playlistActions => {
-  return {
-    type: playlistActionType.FETCH_PLAYLIST_SONGS_PENDING,
-  };
 };
 
 export const fetchPlaylistSongsSuccess = (songs:any): playlistActions => {
@@ -65,29 +44,24 @@ export const fetchPlaylistSongsSuccess = (songs:any): playlistActions => {
   };
 };
 
-export const fetchPlaylistSongsError = (): playlistActions => {
+export const fetchPlaylistSongsPending = (): playlistActions => {
   return {
-    type: playlistActionType.FETCH_PLAYLIST_SONGS_ERROR,
+    type: playlistActionType.FETCH_PLAYLIST_SONGS_PENDING,
   };
 };
 
 export const fetchPlaylistSongs  = (userId:string,accessToken: string,playlistId:string) => (dispatch: Dispatch<playlistActions>) => {
-  const request = new Request(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
+  const request = new Request(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks?offset=0&limit=25`, {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,
     }),
   });
-
   dispatch(fetchPlaylistSongsPending());
-
   fetch(request)
     .then((res) => {
       return res.json();
     })
     .then((res) => {
-      dispatch(fetchPlaylistSongsSuccess(res.items));
+      dispatch(fetchPlaylistSongsSuccess(res));
     })
-    .catch((err) => {
-      dispatch(fetchPlaylistSongsError());
-    });
 };

@@ -13,7 +13,7 @@ import {
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
 import { fetchFeatured } from './redux/actions/browse';
-import { fetchPlaylistsMenu } from './redux/actions/playlist';
+import { fetchPlaylistsMenu, fetchPlaylistSongs } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
 import { setToken } from './redux/actions/token';
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
@@ -45,12 +45,24 @@ const App: React.FC = () => {
       dispatch(setToken(hashParams.access_token));
     }
   }, [token]);
+
   useEffect(() => {
     dispatch(fetchProfile(token));
     dispatch(fetchAlbums(token));
-    dispatch(fetchPlaylistsMenu(user.id, token));
     dispatch(fetchFeatured(token));
   }, [token]);
+
+  useEffect(() => {
+    dispatch(fetchPlaylistsMenu(user.id, token));
+  }, [user.id]);
+
+  const onClickAlbum = React.useCallback(
+    (albumId: string) => {
+      dispatch(fetchPlaylistSongs(user.id, token, albumId));
+    },
+    [user.id],
+  );
+
   return (
     <>
       <div className='wrapper'>
@@ -61,14 +73,16 @@ const App: React.FC = () => {
             <div className='container'>
               <Switch>
                 <Route exact path='/'>
-                  <MainContent view={view} isLoaded={isLoaded} />
+                  <MainContent view={view} isLoaded={isLoaded} onClickAlbum={onClickAlbum} />
                 </Route>
                 <Route exact path='/songsList'>
                   <SongsList token={token} />
                 </Route>
                 <Route exact path='/albums' component={Albums} />
                 <Route exact path='/artists' component={Artists} />
-                <Route exact path='/playlistProfileItem' component={PlaylistItem} />
+                <Route exact path='/playlistProfileItem'>
+                  <PlaylistItem />
+                </Route>
               </Switch>
             </div>
           </div>

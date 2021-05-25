@@ -10,7 +10,6 @@ const initialState = {
   songPlaying: false,
   timeElapsed: 0,
   songId: 0,
-  viewType: 'songs',
   songPaused: true,
   fetchSongsError: false,
   searchSongsPending: false,
@@ -46,7 +45,6 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
         songs: action.payload,
         fetchSongsError: false,
         fetchSongsPending: false,
-        viewType: 'songs',
       };
 
     case songsActionType.FETCH_SONGS_ERROR:

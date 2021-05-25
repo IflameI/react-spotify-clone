@@ -5,13 +5,20 @@ const initialState = {
   isLoaded: false,
   fetchUserError: false,
   user: {
-    id: '',
     display_name: '',
   },
 };
-type initialStateType = typeof initialState;
 
-const profile = (state = initialState, action: profileActions): initialStateType => {
+type StateType = {
+  isLoaded: boolean,
+  fetchUserError:boolean,
+  user:any,
+  id?:string,
+  display_name?: string,
+};
+
+
+const profile = (state = initialState, action: profileActions): StateType => {
   switch (action.type) {
     case profileActionType.SET_LOADED:
       return {

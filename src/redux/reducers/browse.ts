@@ -5,6 +5,7 @@ const initialState = {
   view: [],
   isLoaded:false,
 };
+
 type initialStateType = typeof initialState;
 
 const browse = (state = initialState, action: browseActions): initialStateType => {
