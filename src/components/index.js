@@ -9,11 +9,13 @@ export { default as Artists } from './Artists';
 
 export { default as Albums } from './Albums/Albums';
 export { default as AlbumsColumn } from './Albums/AlbumsColumn';
+export { default as AlbumsItem } from './Albums/AlbumsItem';
 
 export { default as PlaylistItem } from './PlaylistItem';
 export { default as SongsList } from './SongsList';
 
 export { default as TableSongs } from './TableSongs';
+export { default as TableSongsAlbums } from './TableSongsAlbums';
 
 export { default as Calendar } from '../assets/svg/Calendar';
 export { default as Time } from '../assets/svg/Time';

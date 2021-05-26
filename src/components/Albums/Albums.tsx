@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AlbumsColumn } from '../../components';
+import { fetchSongs } from '../../redux/actions/songs';
+import { useAppDispatch, useAppSelector } from '../../redux/typeHooks/hooks';
 
-const Albums: React.FC = () => {
+interface IAlbums {
+  token: string;
+  onClickAlbum: (albumId: string) => any;
+}
+
+const Albums: React.FC<IAlbums> = ({ token, onClickAlbum }) => {
+  const dispatch = useAppDispatch();
+
+  const { songs, fetchAlbumsPending } = useAppSelector(({ songs, albums }) => {
+    return {
+      songs: songs.songs.items,
+      fetchAlbumsPending: albums.fetchAlbumsPending,
+    };
+  });
+  useEffect(() => {
+    dispatch(fetchSongs(token));
+  }, []);
+
   return (
     <section className='albums recently'>
       <h1 className='recently__title content-main__title'>Albums</h1>
@@ -10,12 +29,13 @@ const Albums: React.FC = () => {
       </div>
       <div className='albums__content'>
         <div className='albums__row'>
-          <AlbumsColumn />
-          <AlbumsColumn />
-          <AlbumsColumn />
-          <AlbumsColumn />
-          <AlbumsColumn />
-          <AlbumsColumn />
+          {fetchAlbumsPending ? (
+            <div className='info-playlist__title'>Loader</div>
+          ) : (
+            songs.map((obj, index) => (
+              <AlbumsColumn onClickAlbum={onClickAlbum} key={index} {...obj} />
+            ))
+          )}
         </div>
       </div>
     </section>

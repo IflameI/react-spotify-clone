@@ -40,15 +40,14 @@ export const fetchAlbumsError = ():fetchAlbumsErrorType => {
   };
 };
 
-export const fetchAlbums = (accessToken: string) => (dispatch: Dispatch<actionsType>) => {
-  const request = new Request('https://api.spotify.com/v1/me/albums', {
+
+export const fetchAlbums  = (playlistId:string,accessToken: string) => (dispatch: Dispatch<actionsType>) => {
+  const request = new Request(`	https://api.spotify.com/v1/albums/${playlistId}`, {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,
     }),
   });
-
   dispatch(fetchAlbumsPending());
-
   fetch(request)
     .then((res) => {
       return res.json();
@@ -56,7 +55,5 @@ export const fetchAlbums = (accessToken: string) => (dispatch: Dispatch<actionsT
     .then((res) => {
       dispatch(fetchAlbumsSuccess(res));
     })
-    .catch((err) => {
-      dispatch(fetchAlbumsError());
-    });
 };
+

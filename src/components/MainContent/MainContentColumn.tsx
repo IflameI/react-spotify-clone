@@ -5,12 +5,12 @@ interface IContentColumn {
   images: any[];
   name: string;
   id: string;
-  onClickAlbum: (albumId: string) => any;
+  onClickPlaylist: (albumId: string) => any;
 }
 
-const MainContentColumn: React.FC<IContentColumn> = ({ images, name, id, onClickAlbum }) => {
+const MainContentColumn: React.FC<IContentColumn> = ({ images, name, id, onClickPlaylist }) => {
   return (
-    <div onClick={() => onClickAlbum(id)} className='content-main__column'>
+    <div onClick={() => onClickPlaylist(id)} className='content-main__column'>
       <NavLink exact to='/playlistProfileItem'>
         <div className='content-main__item'>
           <div className='content-main__image'>

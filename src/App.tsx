@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router';
 
 import {
   Albums,
+  AlbumsItem,
   Artists,
   Footer,
   Header,
@@ -48,13 +49,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchProfile(token));
-    // dispatch(fetchAlbums(token));
     dispatch(fetchFeatured(token));
   }, [token]);
 
-  const onClickAlbum = React.useCallback(
+  const onClickPlaylist = React.useCallback(
     (albumId: string) => {
       dispatch(fetchPlaylistsMenu(albumId, token));
+    },
+    [user.id],
+  );
+
+  const onClickAlbum = React.useCallback(
+    (albumId: string) => {
+      dispatch(fetchAlbums(albumId, token));
     },
     [user.id],
   );
@@ -69,15 +76,20 @@ const App: React.FC = () => {
             <div className='container'>
               <Switch>
                 <Route exact path='/'>
-                  <MainContent view={view} isLoaded={isLoaded} onClickAlbum={onClickAlbum} />
+                  <MainContent view={view} isLoaded={isLoaded} onClickPlaylist={onClickPlaylist} />
                 </Route>
                 <Route exact path='/songsList'>
                   <SongsList token={token} />
                 </Route>
-                <Route exact path='/albums' component={Albums} />
+                <Route exact path='/albums'>
+                  <Albums onClickAlbum={onClickAlbum} token={token} />
+                </Route>
                 <Route exact path='/artists' component={Artists} />
                 <Route exact path='/playlistProfileItem'>
                   <PlaylistItem />
+                </Route>
+                <Route exact path='/albumProfileItem'>
+                  <AlbumsItem />
                 </Route>
               </Switch>
             </div>

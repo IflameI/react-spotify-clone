@@ -3,6 +3,14 @@
 const initialState = {
   fetchAlbumsPending: false,
   fetchAlbumsError: false,
+  albums:{
+    tracks: {
+      items: [{}],
+      limit: 0,
+    },
+    images:[{url:''}],
+    name:'Spotify'
+  }
 };
 type initialStateType = typeof initialState;
 
@@ -13,16 +21,10 @@ const albums = (state = initialState, action: any): initialStateType => {
         ...state,
         fetchAlbumsPending: true,
       };
-    case 'FETCH_ALBUMS_SUCCESS"':
+    case 'FETCH_ALBUMS_SUCCESS':
       return {
         ...state,
-        fetchAlbumsError: false,
-        fetchAlbumsPending: false,
-      };
-    case 'FETCH_ALBUMS_ERROR':
-      return {
-        ...state,
-        fetchAlbumsError: true,
+        albums: action.payload,
         fetchAlbumsPending: false,
       };
     default:

@@ -4,10 +4,10 @@ import { MainContentColumn } from '..';
 interface IContent {
   view: any[];
   isLoaded: boolean;
-  onClickAlbum: (albumId: string) => any;
+  onClickPlaylist: (albumId: string) => any;
 }
 
-const MainContent: React.FC<IContent> = ({ view, isLoaded, onClickAlbum }) => {
+const MainContent: React.FC<IContent> = ({ view, isLoaded, onClickPlaylist }) => {
   return (
     <>
       <h1 className='content-main__title'>Browse</h1>
@@ -21,7 +21,7 @@ const MainContent: React.FC<IContent> = ({ view, isLoaded, onClickAlbum }) => {
       <div className='content-main__row'>
         {isLoaded ? (
           view.map((obj: any) => (
-            <MainContentColumn onClickAlbum={onClickAlbum} key={obj.id} {...obj} />
+            <MainContentColumn onClickPlaylist={onClickPlaylist} key={obj.id} {...obj} />
           ))
         ) : (
           <div>Loader</div>

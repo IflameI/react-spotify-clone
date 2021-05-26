@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { SongActions, songsActionType } from "../../types/songs";
+import { SongActions, songsActionType } from '../../types/songs';
 
 const initialState = {
   fetchSongsPending: false,
-  songs:{
-    items:[]
+  songs: {
+    items: [],
   },
   songPlaying: false,
   timeElapsed: 0,
@@ -19,11 +19,10 @@ const initialState = {
   fetchArtistSongsError: false,
   songDetails: null,
   fetchArtistSongsPending: false,
-
 };
 type initialStateType = typeof initialState;
 
-//action 
+//action
 
 const songs = (state = initialState, action: SongActions): initialStateType => {
   switch (action.type) {
