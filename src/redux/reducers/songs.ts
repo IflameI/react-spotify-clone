@@ -26,12 +26,6 @@ type initialStateType = typeof initialState;
 
 const songs = (state = initialState, action: SongActions): initialStateType => {
   switch (action.type) {
-    // case 'UPDATE_VIEW_TYPE':
-    //   return {
-    //     ...state,
-    //     viewType: action.payload,
-    //   };
-
     case songsActionType.FETCH_SONGS_PENDING:
       return {
         ...state,
@@ -51,6 +45,18 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
         ...state,
         fetchSongsError: true,
         fetchSongsPending: false,
+      };
+    case songsActionType.FETCH_ARTIST_SONGS_PENDING:
+      return {
+        ...state,
+        fetchArtistSongsPending: true,
+      };
+
+    case songsActionType.FETCH_ARTIST_SONGS_SUCCESS:
+      return {
+        ...state,
+        songs: action.payload,
+        fetchArtistSongsPending: false,
       };
 
     // case 'SEARCH_SONGS_PENDING':
@@ -117,28 +123,6 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
     //     ...state,
     //     fetchPlaylistSongsError: true,
     //     fetchPlaylistSongsPending: false,
-    //   };
-
-    // case 'FETCH_ARTIST_SONGS_PENDING':
-    //   return {
-    //     ...state,
-    //     fetchArtistSongsPending: true,
-    //   };
-
-    // case 'FETCH_ARTIST_SONGS_SUCCESS':
-    //   return {
-    //     ...state,
-    //     songs: action.songs,
-    //     viewType: 'Artist',
-    //     fetchArtistSongsError: false,
-    //     fetchArtistSongsPending: false,
-    //   };
-
-    // case 'FETCH_ARTIST_SONGS_ERROR':
-    //   return {
-    //     ...state,
-    //     fetchArtistSongsError: true,
-    //     fetchArtistSongsPending: false,
     //   };
 
     // case 'PLAY_SONG':
