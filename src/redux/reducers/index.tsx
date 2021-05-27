@@ -8,6 +8,14 @@ import artists from './artists';
 
 import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({ token, profile, playlist, albums, songs, browse, artists });
+const rootReducer = combineReducers({
+  token,
+  profile,
+  playlist,
+  albums,
+  songs,
+  browse,
+  artists,
+});
 
 export default rootReducer;

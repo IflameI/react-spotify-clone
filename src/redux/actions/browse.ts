@@ -10,84 +10,20 @@ export const setLoaded = (payload: boolean): browseActions => {
   };
 };
 
-export const fetchGenresSuccess = (categories: any): browseActions => {
+export const fetchBrowseSuccess = (browse: any): browseActions => {
   return {
-    type: browseActionType.FETCH_GENRES_SUCCESS,
-    categories,
+    type: browseActionType.FETCH_BROWSE_SUCCESS,
+    browse,
   };
 };
 
-export const fetchGenresError = (): browseActions => {
+export const fetchBrowseError = (): browseActions => {
   return {
-    type: browseActionType.FETCH_GENRES_ERROR,
+    type: browseActionType.FETCH_BROWSE_ERROR,
   };
 };
 
-export const fetchGenres = (accessToken: string) => (dispatch: Dispatch<browseActions>) => {
-  const request = new Request('https://api.spotify.com/v1/browse/categories', {
-    headers: new Headers({
-      Authorization: 'Bearer ' + accessToken,
-    }),
-  });
-
-  fetch(request)
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      dispatch(fetchGenresSuccess(res.categories));
-    })
-    .catch((err) => {
-      dispatch(fetchGenresError());
-    });
-};
-
-export const fetchNewReleasesSuccess = (newReleases: any): browseActions => {
-  return {
-    type: browseActionType.FETCH_NEW_RELEASES_SUCCESS,
-    newReleases,
-  };
-};
-
-export const fetchNewReleasesError = (): browseActions => {
-  return {
-    type: browseActionType.FETCH_NEW_RELEASES_ERROR,
-  };
-};
-
-export const fetchNewReleases = (accessToken: string) => (dispatch: Dispatch<browseActions>) => {
-  const request = new Request('https://api.spotify.com/v1/browse/new-releases', {
-    headers: new Headers({
-      Authorization: 'Bearer ' + accessToken,
-    }),
-  });
-
-  fetch(request)
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      dispatch(fetchNewReleasesSuccess(res.albums));
-    })
-    .catch((err) => {
-      dispatch(fetchNewReleasesError());
-    });
-};
-
-export const fetchFeaturedSuccess  = (featured: any): browseActions => {
-  return {
-    type: browseActionType.FETCH_FEATURED_SUCCESS,
-    featured,
-  };
-};
-
-export const fetchFeaturedError  = (): browseActions => {
-  return {
-    type: browseActionType.FETCH_FEATURED_ERROR,
-  };
-};
-
-export const fetchFeatured  = (accessToken: string) => (dispatch: Dispatch<browseActions>) => {
+export const fetchBrowse = (accessToken: string) => (dispatch: Dispatch<browseActions>) => {
   const request = new Request('https://api.spotify.com/v1/browse/featured-playlists', {
     headers: new Headers({
       Authorization: 'Bearer ' + accessToken,
@@ -99,9 +35,9 @@ export const fetchFeatured  = (accessToken: string) => (dispatch: Dispatch<brows
       return res.json();
     })
     .then((res) => {
-      dispatch(fetchFeaturedSuccess(res.playlists));
+      dispatch(fetchBrowseSuccess(res.playlists));
     })
     .catch((err) => {
-      dispatch(fetchFeaturedError());
+      dispatch(fetchBrowseError());
     });
 };

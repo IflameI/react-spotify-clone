@@ -15,11 +15,12 @@ import {
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
 import { fetchArtistsSongs } from './redux/actions/artists';
-import { fetchFeatured } from './redux/actions/browse';
+import { fetchBrowse } from './redux/actions/browse';
 import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
 import { fetchSongs } from './redux/actions/songs';
 import { setToken } from './redux/actions/token';
+
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
 
 const App: React.FC = () => {
@@ -36,6 +37,7 @@ const App: React.FC = () => {
       };
     },
   );
+
   useEffect(() => {
     const hashParams: any = {};
     let e,
@@ -55,8 +57,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchProfile(token));
-    dispatch(fetchFeatured(token));
     dispatch(fetchSongs(token));
+    dispatch(fetchBrowse(token));
   }, [token]);
 
   const onClickPlaylist = React.useCallback(
