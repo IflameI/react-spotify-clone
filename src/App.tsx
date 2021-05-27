@@ -11,25 +11,31 @@ import {
   PlaylistItem,
   Sidebar,
   SongsList,
+  ArtistsItem,
 } from './components';
 import { fetchAlbums } from './redux/actions/albums';
+import { fetchArtistsSongs } from './redux/actions/artists';
 import { fetchFeatured } from './redux/actions/browse';
 import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
+import { fetchSongs } from './redux/actions/songs';
 import { setToken } from './redux/actions/token';
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { token, user, view, isLoaded } = useAppSelector(({ token, profile, browse }) => {
-    return {
-      token: token.token,
-      user: profile.user,
-      view: browse.view,
-      isLoaded: browse.isLoaded,
-    };
-  });
+  const { token, user, view, isLoaded, songs } = useAppSelector(
+    ({ token, profile, browse, songs }) => {
+      return {
+        token: token.token,
+        user: profile.user,
+        view: browse.view,
+        isLoaded: browse.isLoaded,
+        songs: songs.songs.items,
+      };
+    },
+  );
   useEffect(() => {
     const hashParams: any = {};
     let e,
@@ -50,6 +56,7 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProfile(token));
     dispatch(fetchFeatured(token));
+    dispatch(fetchSongs(token));
   }, [token]);
 
   const onClickPlaylist = React.useCallback(
@@ -62,6 +69,13 @@ const App: React.FC = () => {
   const onClickAlbum = React.useCallback(
     (albumId: string) => {
       dispatch(fetchAlbums(albumId, token));
+    },
+    [user.id],
+  );
+
+  const onClickArtists = React.useCallback(
+    (artistId: string) => {
+      dispatch(fetchArtistsSongs(artistId, token));
     },
     [user.id],
   );
@@ -79,17 +93,22 @@ const App: React.FC = () => {
                   <MainContent view={view} isLoaded={isLoaded} onClickPlaylist={onClickPlaylist} />
                 </Route>
                 <Route exact path='/songsList'>
-                  <SongsList token={token} />
+                  <SongsList songs={songs} />
                 </Route>
                 <Route exact path='/albums'>
-                  <Albums onClickAlbum={onClickAlbum} token={token} />
+                  <Albums songs={songs} onClickAlbum={onClickAlbum} token={token} />
                 </Route>
-                <Route exact path='/artists' component={Artists} />
+                <Route exact path='/artists'>
+                  <Artists onClickArtists={onClickArtists} songs={songs} token={token} />
+                </Route>
                 <Route exact path='/playlistProfileItem'>
                   <PlaylistItem />
                 </Route>
                 <Route exact path='/albumProfileItem'>
                   <AlbumsItem />
+                </Route>
+                <Route exact path='/artistsItem'>
+                  <ArtistsItem />
                 </Route>
               </Switch>
             </div>

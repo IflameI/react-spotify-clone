@@ -46,19 +46,6 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
         fetchSongsError: true,
         fetchSongsPending: false,
       };
-    case songsActionType.FETCH_ARTIST_SONGS_PENDING:
-      return {
-        ...state,
-        fetchArtistSongsPending: true,
-      };
-
-    case songsActionType.FETCH_ARTIST_SONGS_SUCCESS:
-      return {
-        ...state,
-        songs: action.payload,
-        fetchArtistSongsPending: false,
-      };
-
     // case 'SEARCH_SONGS_PENDING':
     //   return {
     //     ...state,

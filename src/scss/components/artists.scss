@@ -20,9 +20,10 @@
   }
   &__img {
     img {
-      max-width: 100%;
+      width: 100%;
       object-fit: cover;
       border-radius: 50%;
+      height: 340px;
     }
   }
   &__name {
@@ -30,4 +31,8 @@
     font-weight: 700;
     padding-top: 10px;
   }
+}
+
+.recently__title_mod {
+  padding-left: 0px !important;
 }

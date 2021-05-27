@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
           </li>
           <li>
             <NavLink exact to='/artists' activeClassName='sidebar__active'>
-              Artists
+              Artists recommendations
             </NavLink>
           </li>
         </div>

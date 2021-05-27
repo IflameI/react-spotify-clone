@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux';
 import { artistsActions, artistsActionType } from '../../types/artists';
-import { SongActions, songsActionType } from '../../types/songs';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -26,7 +25,7 @@ export const fetchArtistsSuccess = (payload: any): artistsActions => {
 
 export const fetchArtists =
   (artistIds: string, accessToken: string) => (dispatch: Dispatch<artistsActions>) => {
-    const request = new Request(`https://api.spotify.com/v1/artists?ids=${artistIds}`, {
+    const request = new Request(`https://api.spotify.com/v1/artists/${artistIds}/related-artists`, {
       headers: new Headers({
         Authorization: 'Bearer ' + accessToken,
       }),
@@ -41,21 +40,21 @@ export const fetchArtists =
       });
   };
 
-export const fetchArtistSongsPending = (): SongActions => {
+export const fetchArtistSongsPending = (): artistsActions => {
   return {
-    type: songsActionType.FETCH_ARTIST_SONGS_PENDING,
+    type: artistsActionType.FETCH_ARTIST_SONGS_PENDING,
   };
 };
 
-export const fetchArtistsSongsSuccess = (payload: any): SongActions => {
+export const fetchArtistsSongsSuccess = (payload: any): artistsActions => {
   return {
-    type: songsActionType.FETCH_ARTIST_SONGS_SUCCESS,
+    type: artistsActionType.FETCH_ARTIST_SONGS_SUCCESS,
     payload,
   };
 };
 
 export const fetchArtistsSongs =
-  (artistId: string, accessToken: string) => (dispatch: Dispatch<SongActions>) => {
+  (artistId: string, accessToken: string) => (dispatch: Dispatch<artistsActions>) => {
     const request = new Request(
       `https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=US`,
       {

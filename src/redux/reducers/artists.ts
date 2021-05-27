@@ -5,7 +5,9 @@ import { artistsActions, artistsActionType } from '../../types/artists';
 const initialState = {
   artistIds: '',
   fetchArtistsPending: false,
-  artistList: [],
+  artistList: { artists: [] },
+  songsArtist: { tracks: [] },
+  fetchArtistSongsPending: false,
 };
 type initialStateType = typeof initialState;
 
@@ -27,7 +29,18 @@ const albums = (state = initialState, action: artistsActions): initialStateType 
         artistList: action.payload,
         fetchArtistsPending: false,
       };
+    case artistsActionType.FETCH_ARTIST_SONGS_PENDING:
+      return {
+        ...state,
+        fetchArtistSongsPending: true,
+      };
 
+    case artistsActionType.FETCH_ARTIST_SONGS_SUCCESS:
+      return {
+        ...state,
+        songsArtist: action.payload,
+        fetchArtistSongsPending: false,
+      };
     default:
       return state;
   }

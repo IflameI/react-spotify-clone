@@ -5,7 +5,9 @@ export { default as Footer } from './Footer';
 export { default as MainContent } from './MainContent/MainContent';
 export { default as MainContentColumn } from './MainContent/MainContentColumn';
 
-export { default as Artists } from './Artists';
+export { default as Artists } from './Artists/Artists';
+export { default as ArtistsColumn } from './Artists/ArtistsColumn';
+export { default as ArtistsItem } from './Artists/ArtistsItem';
 
 export { default as Albums } from './Albums/Albums';
 export { default as AlbumsColumn } from './Albums/AlbumsColumn';

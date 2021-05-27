@@ -1,25 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Calendar, TableSongs, Time } from '.';
-import { fetchSongs } from '../redux/actions/songs';
-import { useAppDispatch, useAppSelector } from '../redux/typeHooks/hooks';
 
 interface ISongs {
-  token: string;
+  songs: any;
 }
 
-const SongsList: React.FC<ISongs> = ({ token }) => {
-  const dispatch = useAppDispatch();
-
-  const { songs, fetchSongsPending } = useAppSelector(({ songs }) => {
-    return {
-      songs: songs.songs.items,
-      fetchSongsPending: songs.fetchSongsPending,
-    };
-  });
-  useEffect(() => {
-    dispatch(fetchSongs(token));
-  }, []);
-
+const SongsList: React.FC<ISongs> = ({ songs }) => {
   return (
     <section className='recently'>
       <h1 className='recently__title content-main__title'>Songs</h1>
@@ -40,11 +26,9 @@ const SongsList: React.FC<ISongs> = ({ token }) => {
             </th>
           </tr>
         </thead>
-        {fetchSongsPending ? (
-          <div>Loader</div>
-        ) : (
-          songs.map((obj, index) => <TableSongs key={index} {...obj} />)
-        )}
+        {songs.map((obj: any, index: any) => (
+          <TableSongs key={index} {...obj} />
+        ))}
       </table>
     </section>
   );
