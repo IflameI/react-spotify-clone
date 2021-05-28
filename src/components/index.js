@@ -18,6 +18,8 @@ export { default as SongsList } from './SongsList';
 
 export { default as TableSongs } from './TableSongs';
 export { default as TableSongsAlbums } from './TableSongsAlbums';
+export { default as TableSearchSongs } from './TableSearch/TableSearchSongs';
+export { default as TableSearchWrapper } from './TableSearch/TableSearchWrapper';
 
 export { default as Calendar } from '../assets/svg/Calendar';
 export { default as Time } from '../assets/svg/Time';

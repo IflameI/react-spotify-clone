@@ -1,11 +1,12 @@
 import React from 'react';
-import { Calendar, TableSearchSongs, Time } from '.';
+import { Calendar, TableSongs, Time } from '../';
 
 interface ISongs {
-  songs: any;
+  songsSearch: any;
+  searchSongsPending: any;
 }
 
-const SongsList: React.FC<ISongs> = ({ songs }) => {
+const TableSearchWrapper: React.FC<ISongs> = ({ songsSearch, searchSongsPending }) => {
   return (
     <section className='recently'>
       <h1 className='recently__title content-main__title'>Songs</h1>
@@ -26,12 +27,14 @@ const SongsList: React.FC<ISongs> = ({ songs }) => {
             </th>
           </tr>
         </thead>
-        {songs.map((obj: any, index: any) => (
-          <TableSearchSongs key={index} {...obj} />
-        ))}
+        {searchSongsPending ? (
+          <div>Loader</div>
+        ) : (
+          songsSearch.map((obj: any, index: any) => <TableSongs key={index} {...obj} />)
+        )}
       </table>
     </section>
   );
 };
 
-export default SongsList;
+export default TableSearchWrapper;

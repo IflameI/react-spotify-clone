@@ -1,14 +1,11 @@
 import React from 'react';
 
 interface ISongs {
-  duration_ms: any;
-  name: any;
-  artists: any;
-  album: any;
+  track: any;
 }
 
-const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists, album }) => {
-  const songDuration = duration_ms;
+const TableSearchSongs: React.FC<ISongs> = ({ track }) => {
+  const songDuration = track.duration_ms;
   const msToMinutesAndSeconds = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds: any = ((ms % 60000) / 1000).toFixed(0);
@@ -17,14 +14,14 @@ const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists, album }) => 
   return (
     <tbody className='table-main__body'>
       <tr>
-        <td>{name}</td>
-        <td>{artists[0].name}</td>
-        <td>{album.name}</td>
-        <td>{album.release_date}</td>
+        <td>{track.name}</td>
+        <td>{track.artists[0].name}</td>
+        <td>{track.album.name}</td>
+        <td>{track.album.release_date}</td>
         <td>{msToMinutesAndSeconds(songDuration)}</td>
       </tr>
     </tbody>
   );
 };
 
-export default TableSongs;
+export default TableSearchSongs;

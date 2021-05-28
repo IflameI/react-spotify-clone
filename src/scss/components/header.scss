@@ -47,10 +47,6 @@
     line-height: 18px;
     color: #575756;
     background-color: transparent;
-    background-image: url('https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-magnifier-6.png&r=255&g=255&b=255');
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-    background-position: 95% center;
     border-radius: 50px;
     border: 1px solid #fff;
     transition: all 250ms ease-in-out;
@@ -72,6 +68,16 @@
       border-radius: 0;
       background-position: 100% center;
     }
+  }
+}
+
+.header__search-icon {
+  background: transparent;
+  position: relative;
+  right: 27px;
+  img {
+    height: 18px;
+    width: 18px;
   }
 }
 

@@ -7,6 +7,9 @@ const initialState = {
   songs: {
     items: [],
   },
+  songsSearch: {
+    tracks: { items: [] },
+  },
   songPlaying: false,
   timeElapsed: 0,
   songId: 0,
@@ -21,8 +24,6 @@ const initialState = {
   fetchArtistSongsPending: false,
 };
 type initialStateType = typeof initialState;
-
-//action
 
 const songs = (state = initialState, action: SongActions): initialStateType => {
   switch (action.type) {
@@ -46,71 +47,24 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
         fetchSongsError: true,
         fetchSongsPending: false,
       };
-    // case 'SEARCH_SONGS_PENDING':
-    //   return {
-    //     ...state,
-    //     searchSongsPending: true,
-    //   };
-
-    // case 'SEARCH_SONGS_SUCCESS':
-    //   return {
-    //     ...state,
-    //     songs: action.payload,
-    //     searchSongsError: false,
-    //     searchSongsPending: false,
-    //     viewType: 'search',
-    //   };
-
-    // case 'SEARCH_SONGS_ERROR':
-    //   return {
-    //     ...state,
-    //     searchSongsError: true,
-    //     searchSongsPending: false,
-    //   };
-
-    // case 'FETCH_RECENTLY_PLAYED_PENDING':
-    //   return {
-    //     ...state,
-    //     fetchSongsPending: true,
-    //   };
-
-    // case 'FETCH_RECENTLY_PLAYED_SUCCESS':
-    //   return {
-    //     ...state,
-    //     songs: action.songs,
-    //     viewType: 'Recently Played',
-    //     fetchSongsError: false,
-    //     fetchSongsPending: false,
-    //   };
-
-    // case 'FETCH_RECENTLY_PLAYED_ERROR':
-    //   return {
-    //     ...state,
-    //     fetchSongsError: true,
-    //     fetchSongsPending: false,
-    //   };
-
-    // case 'FETCH_PLAYLIST_SONGS_PENDING':
-    //   return {
-    //     ...state,
-    //     fetchPlaylistSongsPending: true,
-    //   };
-
-    // case 'FETCH_PLAYLIST_SONGS_SUCCESS':
-    //   return {
-    //     ...state,
-    //     songs: action.songs,
-    //     viewType: 'playlist',
-    //     fetchPlaylistSongsError: false,
-    //     fetchPlaylistSongsPending: false,
-    //   };
-
-    // case 'FETCH_PLAYLIST_SONGS_ERROR':
-    //   return {
-    //     ...state,
-    //     fetchPlaylistSongsError: true,
-    //     fetchPlaylistSongsPending: false,
-    //   };
+    case songsActionType.SEARCH_SONGS_PENDING:
+      return {
+        ...state,
+        searchSongsPending: true,
+      };
+    case songsActionType.SEARCH_SONGS_SUCCESS:
+      return {
+        ...state,
+        songsSearch: action.payload,
+        searchSongsError: false,
+        searchSongsPending: false,
+      };
+    case songsActionType.SEARCH_SONGS_ERROR:
+      return {
+        ...state,
+        searchSongsError: true,
+        searchSongsPending: false,
+      };
 
     // case 'PLAY_SONG':
     //   return {

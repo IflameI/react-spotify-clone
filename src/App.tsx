@@ -12,7 +12,9 @@ import {
   Sidebar,
   SongsList,
   ArtistsItem,
+  TableSearchSongs,
 } from './components';
+import TableSearchWrapper from './components/TableSearch/TableSearchWrapper';
 import { fetchAlbums } from './redux/actions/albums';
 import { fetchArtistsSongs } from './redux/actions/artists';
 import { fetchBrowse } from './redux/actions/browse';
@@ -26,7 +28,7 @@ import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { token, user, view, isLoaded, songs } = useAppSelector(
+  const { token, user, view, isLoaded, songs, songsSearch, searchSongsPending } = useAppSelector(
     ({ token, profile, browse, songs }) => {
       return {
         token: token.token,
@@ -34,10 +36,12 @@ const App: React.FC = () => {
         view: browse.view,
         isLoaded: browse.isLoaded,
         songs: songs.songs.items,
+        songsSearch: songs.songsSearch.tracks.items,
+        searchSongsPending: songs.searchSongsPending,
       };
     },
   );
-
+  console.log(songsSearch);
   useEffect(() => {
     const hashParams: any = {};
     let e,
@@ -86,7 +90,7 @@ const App: React.FC = () => {
     <>
       <div className='wrapper'>
         <main className='main'>
-          <Header user={user} />
+          <Header token={token} user={user} />
           <Sidebar />
           <div className='main__content content-main'>
             <div className='container'>
@@ -111,6 +115,12 @@ const App: React.FC = () => {
                 </Route>
                 <Route exact path='/artistsItem'>
                   <ArtistsItem />
+                </Route>
+                <Route exact path='/searchSongs'>
+                  <TableSearchWrapper
+                    searchSongsPending={searchSongsPending}
+                    songsSearch={songsSearch}
+                  />
                 </Route>
               </Switch>
             </div>
