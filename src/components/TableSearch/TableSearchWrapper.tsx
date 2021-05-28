@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, TableSongs, Time } from '../';
+import { Calendar, TableSearchSongs, TableSongs, Time } from '../';
 
 interface ISongs {
   songsSearch: any;
@@ -30,7 +30,7 @@ const TableSearchWrapper: React.FC<ISongs> = ({ songsSearch, searchSongsPending 
         {searchSongsPending ? (
           <div>Loader</div>
         ) : (
-          songsSearch.map((obj: any, index: any) => <TableSongs key={index} {...obj} />)
+          songsSearch.map((obj: any, index: any) => <TableSearchSongs key={index} {...obj} />)
         )}
       </table>
     </section>

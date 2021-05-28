@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, TableSearchSongs, Time } from '.';
+import { Calendar, TableSearchSongs, TableSongs, Time } from '.';
 
 interface ISongs {
   songs: any;
@@ -27,7 +27,7 @@ const SongsList: React.FC<ISongs> = ({ songs }) => {
           </tr>
         </thead>
         {songs.map((obj: any, index: any) => (
-          <TableSearchSongs key={index} {...obj} />
+          <TableSongs key={index} {...obj} />
         ))}
       </table>
     </section>
