@@ -55,7 +55,7 @@ const App: React.FC = () => {
 
     if (!hashParams.access_token) {
       window.location.href =
-        'https://accounts.spotify.com/authorize?client_id=ebc667470c9944529a8e67a38b89722d&scope=streaming%20user-read-email%20user-read-private&response_type=token&redirect_uri=http://localhost:3000/';
+        'https://accounts.spotify.com/authorize?client_id=ebc667470c9944529a8e67a38b89722d&scope=streaming%20user-read-email%20user-read-private&response_type=token&redirect_uri=https://spotify-react-clones.herokuapp.com/';
     } else {
       dispatch(setToken(hashParams.access_token));
     }
