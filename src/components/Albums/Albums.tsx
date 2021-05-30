@@ -11,9 +11,6 @@ const Albums: React.FC<IAlbums> = ({ onClickAlbum, songs }) => {
   return (
     <section className='albums recently'>
       <h1 className='recently__title content-main__title'>Albums</h1>
-      <div className='recently__button'>
-        <button className='btn-play'>PLAY</button>
-      </div>
       <div className='albums__content'>
         <div className='albums__row'>
           {songs.map((obj: any, index: any) => (

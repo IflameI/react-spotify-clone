@@ -6,7 +6,6 @@ interface IContent {
   isLoaded: boolean;
   onClickPlaylist: (albumId: string) => any;
 }
-
 const MainContent: React.FC<IContent> = ({ view, isLoaded, onClickPlaylist }) => {
   return (
     <>

@@ -81,3 +81,26 @@ export const searchSongs =
         dispatch(searchError());
       });
   };
+
+export const playSongs = (payload: any): SongActions => {
+  return {
+    type: songsActionType.PLAY_SONG,
+    payload,
+  };
+};
+export const pauseSongs = (): SongActions => {
+  return {
+    type: songsActionType.PAUSE_SONG,
+  };
+};
+export const resumeSong = (): SongActions => {
+  return {
+    type: songsActionType.RESUME_SONG,
+  };
+};
+
+export const stopSong = (): SongActions => {
+  return {
+    type: songsActionType.STOP_SONG,
+  };
+};

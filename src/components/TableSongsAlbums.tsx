@@ -4,9 +4,11 @@ interface ISongs {
   duration_ms: number;
   name: string;
   artists: any;
+  audioControl: (song: any) => any;
+  album: any;
 }
 
-const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists }) => {
+const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists, album, audioControl }) => {
   const songDuration = duration_ms;
   const msToMinutesAndSeconds = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
@@ -15,7 +17,7 @@ const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists }) => {
   };
   return (
     <tbody className='table-main__body'>
-      <tr>
+      <tr onClick={audioControl}>
         <td>{name}</td>
         <td>{artists[0].name}</td>
         <td>{name}</td>

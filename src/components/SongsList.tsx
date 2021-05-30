@@ -3,15 +3,13 @@ import { Calendar, TableSearchSongs, TableSongs, Time } from '.';
 
 interface ISongs {
   songs: any;
+  audioControl: (song: any) => any;
 }
 
-const SongsList: React.FC<ISongs> = ({ songs }) => {
+const SongsList: React.FC<ISongs> = ({ songs, audioControl }) => {
   return (
     <section className='recently'>
       <h1 className='recently__title content-main__title'>Songs</h1>
-      <div className='recently__button'>
-        <button className='btn-play'>PLAY</button>
-      </div>
       <table className='songs-playlist-item__table table-main'>
         <thead>
           <tr className='table-main__head'>
@@ -27,7 +25,7 @@ const SongsList: React.FC<ISongs> = ({ songs }) => {
           </tr>
         </thead>
         {songs.map((obj: any, index: any) => (
-          <TableSongs key={index} {...obj} />
+          <TableSongs audioControl={audioControl} key={index} {...obj} />
         ))}
       </table>
     </section>

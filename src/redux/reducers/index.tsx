@@ -5,6 +5,7 @@ import albums from './albums';
 import songs from './songs';
 import browse from './browse';
 import artists from './artists';
+import sound from './sound';
 
 import { combineReducers } from 'redux';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   songs,
   browse,
   artists,
+  sound,
 });
 
 export default rootReducer;

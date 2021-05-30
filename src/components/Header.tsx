@@ -9,7 +9,7 @@ type HeaderType = {
 
 interface IHeaderInfo {
   user: HeaderType;
-  token: any;
+  token: string;
 }
 
 const Header: React.FC<IHeaderInfo> = ({ user, token }) => {

@@ -2,9 +2,10 @@ import React from 'react';
 
 interface ISongs {
   track: any;
+  audioControl: (song: any) => any;
 }
 
-const TableSearchSongs: React.FC<ISongs> = ({ track }) => {
+const TableSearchSongs: React.FC<ISongs> = ({ track, audioControl }) => {
   const songDuration = track.duration_ms;
   const msToMinutesAndSeconds = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
@@ -13,7 +14,10 @@ const TableSearchSongs: React.FC<ISongs> = ({ track }) => {
   };
   return (
     <tbody className='table-main__body'>
-      <tr>
+      <tr
+        onClick={() => {
+          audioControl(track);
+        }}>
         <td>{track.name}</td>
         <td>{track.artists[0].name}</td>
         <td>{track.album.name}</td>

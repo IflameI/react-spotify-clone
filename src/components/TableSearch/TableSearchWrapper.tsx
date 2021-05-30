@@ -4,9 +4,14 @@ import { Calendar, TableSearchSongs, TableSongs, Time } from '../';
 interface ISongs {
   songsSearch: any;
   searchSongsPending: any;
+  audioControl: (song: any) => any;
 }
 
-const TableSearchWrapper: React.FC<ISongs> = ({ songsSearch, searchSongsPending }) => {
+const TableSearchWrapper: React.FC<ISongs> = ({
+  songsSearch,
+  searchSongsPending,
+  audioControl,
+}) => {
   return (
     <section className='recently'>
       <h1 className='recently__title content-main__title'>Songs</h1>
@@ -30,7 +35,9 @@ const TableSearchWrapper: React.FC<ISongs> = ({ songsSearch, searchSongsPending 
         {searchSongsPending ? (
           <div>Loader</div>
         ) : (
-          songsSearch.map((obj: any, index: any) => <TableSearchSongs key={index} {...obj} />)
+          songsSearch.map((obj: any) => (
+            <TableSearchSongs audioControl={audioControl} key={obj.id} {...obj} />
+          ))
         )}
       </table>
     </section>

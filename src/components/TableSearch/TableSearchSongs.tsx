@@ -5,6 +5,7 @@ interface ISongs {
   name: any;
   artists: any;
   album: any;
+  audioControl: (song: any) => any;
 }
 
 const TableSongs: React.FC<ISongs> = ({ duration_ms, name, artists, album }) => {

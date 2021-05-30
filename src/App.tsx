@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router';
 
 import {
@@ -12,7 +12,6 @@ import {
   Sidebar,
   SongsList,
   ArtistsItem,
-  TableSearchSongs,
 } from './components';
 import TableSearchWrapper from './components/TableSearch/TableSearchWrapper';
 import { fetchAlbums } from './redux/actions/albums';
@@ -20,7 +19,7 @@ import { fetchArtistsSongs } from './redux/actions/artists';
 import { fetchBrowse } from './redux/actions/browse';
 import { fetchPlaylistsMenu } from './redux/actions/playlist';
 import { fetchProfile } from './redux/actions/profile';
-import { fetchSongs } from './redux/actions/songs';
+import { fetchSongs, playSongs, stopSong } from './redux/actions/songs';
 import { setToken } from './redux/actions/token';
 
 import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
@@ -28,20 +27,23 @@ import { useAppDispatch, useAppSelector } from './redux/typeHooks/hooks';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  let audio: any;
+
   const { token, user, view, isLoaded, songs, songsSearch, searchSongsPending } = useAppSelector(
-    ({ token, profile, browse, songs }) => {
+    ({ token, profile, browse, songs, sound }) => {
       return {
         token: token.token,
         user: profile.user,
         view: browse.view,
         isLoaded: browse.isLoaded,
         songs: songs.songs.items,
+        songPaused: songs.songPaused,
         songsSearch: songs.songsSearch.tracks.items,
         searchSongsPending: songs.searchSongsPending,
+        soundVolume: sound.volume,
       };
     },
   );
-  console.log(songsSearch);
   useEffect(() => {
     const hashParams: any = {};
     let e,
@@ -53,7 +55,7 @@ const App: React.FC = () => {
 
     if (!hashParams.access_token) {
       window.location.href =
-        'https://accounts.spotify.com/authorize?client_id=ebc667470c9944529a8e67a38b89722d&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=http://localhost:3000/';
+        'https://accounts.spotify.com/authorize?client_id=ebc667470c9944529a8e67a38b89722d&scope=streaming%20user-read-email%20user-read-private&response_type=token&redirect_uri=http://localhost:3000/';
     } else {
       dispatch(setToken(hashParams.access_token));
     }
@@ -64,6 +66,23 @@ const App: React.FC = () => {
     dispatch(fetchSongs(token));
     dispatch(fetchBrowse(token));
   }, [token]);
+
+  const audioControl = React.useCallback(
+    (track: any) => {
+      if (audio === undefined) {
+        dispatch(playSongs(track));
+        audio = new Audio(track.preview_url);
+        audio.play();
+      } else {
+        dispatch(stopSong());
+        audio.pause();
+        dispatch(playSongs(track));
+        audio = new Audio(track.preview_url);
+        audio.play();
+      }
+    },
+    [audio],
+  );
 
   const onClickPlaylist = React.useCallback(
     (albumId: string) => {
@@ -99,7 +118,7 @@ const App: React.FC = () => {
                   <MainContent view={view} isLoaded={isLoaded} onClickPlaylist={onClickPlaylist} />
                 </Route>
                 <Route exact path='/songsList'>
-                  <SongsList songs={songs} />
+                  <SongsList audioControl={audioControl} songs={songs} />
                 </Route>
                 <Route exact path='/albums'>
                   <Albums songs={songs} onClickAlbum={onClickAlbum} token={token} />
@@ -108,10 +127,10 @@ const App: React.FC = () => {
                   <Artists onClickArtists={onClickArtists} songs={songs} token={token} />
                 </Route>
                 <Route exact path='/playlistProfileItem'>
-                  <PlaylistItem />
+                  <PlaylistItem audioControl={audioControl} />
                 </Route>
                 <Route exact path='/albumProfileItem'>
-                  <AlbumsItem />
+                  <AlbumsItem audioControl={audioControl} />
                 </Route>
                 <Route exact path='/artistsItem'>
                   <ArtistsItem />
@@ -120,6 +139,7 @@ const App: React.FC = () => {
                   <TableSearchWrapper
                     searchSongsPending={searchSongsPending}
                     songsSearch={songsSearch}
+                    audioControl={audioControl}
                   />
                 </Route>
               </Switch>

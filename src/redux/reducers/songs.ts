@@ -11,7 +11,6 @@ const initialState = {
     tracks: { items: [] },
   },
   songPlaying: false,
-  timeElapsed: 0,
   songId: 0,
   songPaused: true,
   fetchSongsError: false,
@@ -20,7 +19,16 @@ const initialState = {
   fetchPlaylistSongsPending: false,
   fetchPlaylistSongsError: false,
   fetchArtistSongsError: false,
-  songDetails: null,
+  songDetails: {
+    name: 'Anonymous',
+    artists: [{ name: 'Anonymous' }],
+    album: { images: { 0: { url: '' } } },
+    track: {
+      name: 'Anonymous',
+      artists: [{ name: 'Anonymous' }],
+      album: { images: { 0: { url: '' } } },
+    },
+  },
   fetchArtistSongsPending: false,
 };
 type initialStateType = typeof initialState;
@@ -66,42 +74,43 @@ const songs = (state = initialState, action: SongActions): initialStateType => {
         searchSongsPending: false,
       };
 
-    // case 'PLAY_SONG':
-    //   return {
-    //     ...state,
-    //     songPlaying: true,
-    //     songDetails: action.song,
-    //     songId: action.song.id,
-    //     timeElapsed: 0,
-    //     songPaused: false,
-    //   };
+    case songsActionType.PLAY_SONG:
+      return {
+        ...state,
+        songPlaying: true,
+        songDetails: action.payload,
+        songId: action.payload.id,
+        songPaused: false,
+      };
 
-    // case 'STOP_SONG':
-    //   return {
-    //     ...state,
-    //     songPlaying: false,
-    //     songDetails: null,
-    //     timeElapsed: 0,
-    //     songPaused: true,
-    //   };
+    case songsActionType.STOP_SONG:
+      return {
+        ...state,
+        songPlaying: false,
+        songDetails: {
+          name: 'Anonymous',
+          artists: [{ name: 'Anonymous' }],
+          album: { images: { 0: { url: '' } } },
+          track: {
+            name: 'Anonymous',
+            artists: [{ name: 'Anonymous' }],
+            album: { images: { 0: { url: '' } } },
+          },
+        },
+        songPaused: true,
+      };
 
-    // case 'PAUSE_SONG':
-    //   return {
-    //     ...state,
-    //     songPaused: true,
-    //   };
+    case songsActionType.PAUSE_SONG:
+      return {
+        ...state,
+        songPaused: true,
+      };
 
-    // case 'RESUME_SONG':
-    //   return {
-    //     ...state,
-    //     songPaused: false,
-    //   };
-
-    // case 'INCREASE_SONG_TIME':
-    //   return {
-    //     ...state,
-    //     timeElapsed: action.payload,
-    //   };
+    case songsActionType.RESUME_SONG:
+      return {
+        ...state,
+        songPaused: false,
+      };
 
     default:
       return state;

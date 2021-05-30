@@ -31,9 +31,6 @@ const Sidebar: React.FC = () => {
           </li>
         </div>
       </ul>
-      <div className='sidebar__img'>
-        <img src='https://i.scdn.co/image/ab67616d0000b27314be855a9035c9154ee6970c' alt=''></img>
-      </div>
     </aside>
   );
 };

@@ -2,7 +2,11 @@ import React from 'react';
 import { TableSongs } from '.';
 import { useAppSelector } from '../redux/typeHooks/hooks';
 
-const PlaylistItem: React.FC = () => {
+interface IPlaylist {
+  audioControl: (song: any) => any;
+}
+
+const PlaylistItem: React.FC<IPlaylist> = ({ audioControl }) => {
   const { playlistMenu, fetchPlaylistPending } = useAppSelector(({ playlist }) => {
     return {
       playlistMenu: playlist.playlistMenu,
@@ -61,7 +65,7 @@ const PlaylistItem: React.FC = () => {
                 </tr>
               </thead>
               {playlistMenu.tracks.items.map((obj: any) => (
-                <TableSongs key={obj.id} {...obj} />
+                <TableSongs audioControl={audioControl} key={obj.id} {...obj} />
               ))}
             </table>
           </div>

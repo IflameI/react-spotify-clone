@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableSongs, TableSongsAlbums } from '..';
+import { TableSongsAlbums } from '..';
 import { useAppSelector } from '../../redux/typeHooks/hooks';
 
 const PlaylistItem: React.FC = () => {
@@ -19,9 +19,6 @@ const PlaylistItem: React.FC = () => {
             <div className='playlist-item__wrapper'>
               <div className='playlist-item__info recently__title_mod info-playlist'>
                 <h1 className='recently__title  content-main__title'>Songs</h1>
-                <div className='info-playlist__button'>
-                  <button className='btn-play'>PLAY</button>
-                </div>
               </div>
             </div>
           </div>
