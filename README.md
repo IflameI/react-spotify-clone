@@ -2,7 +2,7 @@
 
 <a href = "https://spotify-react-clones.herokuapp.com/" >View Demo</a>
 
-react-dashboard-admin - это красивая dashboard панель, с интересными фишками.
+react-spotify-clone - это клон известного приложения spotify. Для использования вам нужен аккаунт  spotify
 
 Stack:
 
